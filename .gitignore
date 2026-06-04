@@ -1,0 +1,58 @@
+,
+# uv.lock should be committed to track precise dependencies.
+!uv.lock
+
+# ==========================================
+# FastAPI / Python Runtime
+# ==========================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.python-version
+
+# ==========================================
+# Environment Variables & Secrets
+# ==========================================
+.env
+.env.*
+!.env.example
+*.pyc
+
+# ==========================================
+# Database (SQLite / SQLModel)
+# ==========================================
+*.db
+*.sqlite
+*.sqlite3
+
+# ==========================================
+# Testing & Linting (Pytest, Ruff, Mypy)
+# ==========================================
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+coverage.xml
+
+# ==========================================
+# IDEs and Editors
+# ==========================================
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ==========================================
+# OS Generated Files
+# ==========================================
+.DS_Store
+Thumbs.db
+
+# ==========================================
+# Virtual Environments
+# ==========================================
+.venv/
+venv/
+.venv/*
