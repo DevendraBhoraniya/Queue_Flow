@@ -248,7 +248,6 @@ def next_serving(
         )
     }
 
-
 def get_token(
     db: Session,
     token_id: int,
@@ -300,4 +299,29 @@ def get_token(
         "Position":position,
         "Estimated_waiting_time": estimated_wait_time,
         "Created_at":current_token.created_at
+    }
+
+def cancel_token(
+    db: Session,
+    token_id: int,
+):
+    current_token =(
+        db.query(QueueToken)
+        .filter(
+            QueueToken.id == token_id,
+        ).first())
+
+    if current_token is None:
+        raise HTTPException(
+            status_code=404,
+            detail="The Token you are searching is not there please check with correct or not"
+        )
+
+    current_token.status = "cancelled"
+
+    db.commit()
+    db.refresh(current_token)
+
+    return{
+        "Your token has been canceld if you need please create new token"
     }

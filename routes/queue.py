@@ -2,18 +2,13 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
 from database.database import get_db
-from database.db_queue import create_queue, get_queues_all, Join_queue, start_queue, get_token , next_serving
+from database.db_queue import create_queue, get_queues_all, Join_queue, start_queue, get_queue_by_id , next_serving , get_queues_by_user
 from database.schemas import QueueBase, QueueResponse, QueueTokenResponse,QueueTokenBase
 from database.db_user import  get_current_user
 
 router = APIRouter(
     prefix="/queue",
     tags=["queue"]
-)
-
-router_token = APIRouter(
-    prefix="/token",
-    tags=["token"]
 )
 
 @router.post("/create", response_model=QueueResponse)
@@ -42,7 +37,29 @@ def Join(
     request
 )
 
-@router.patch('{queue_id}/start')
+@router.get("/{queue_id}")
+def queue(
+    queue_id: int,
+    db: Session = Depends(get_db)
+):
+    return get_queue_by_id(
+        db,
+        queue_id
+    )
+
+
+@router.get("/my")
+def my_queues(
+    db: Session = Depends(get_db),
+    current_user = Depends(get_current_user)
+):
+    return get_queues_by_user(
+        db,
+        current_user.id
+    )
+
+
+@router.patch('/{queue_id}/start')
 def start(
     queue_id: int,
     db: Session = Depends(get_db),

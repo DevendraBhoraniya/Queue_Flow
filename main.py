@@ -15,9 +15,3 @@ app.include_router(token.router)
 def main():
     return {"message": "Healthy"}
 
-
-#  {
-#   "username": "Devendra",
-#   "email": "devendra@gamil.com",
-#   "password": "devendra@23"
-# }
